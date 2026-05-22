@@ -14,56 +14,173 @@
 
     body {
       height: 100vh;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
+      background: #020617;
       font-family: Arial, Helvetica, sans-serif;
       color: white;
       text-align: center;
-      padding: 20px;
+      position: relative;
     }
 
+    /* Háttér animáció */
+    .background {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background:
+        radial-gradient(circle at center, rgba(56,189,248,0.15) 0%, transparent 35%),
+        radial-gradient(circle at top left, rgba(168,85,247,0.15) 0%, transparent 30%),
+        radial-gradient(circle at bottom right, rgba(34,197,94,0.12) 0%, transparent 30%);
+      animation: moveBg 12s ease infinite alternate;
+      z-index: 0;
+    }
+
+    @keyframes moveBg {
+      0% {
+        transform: translate(-10%, -10%) scale(1);
+      }
+      100% {
+        transform: translate(10%, 10%) scale(1.2);
+      }
+    }
+
+    /* Kártya */
     .container {
-      max-width: 700px;
+      position: relative;
+      z-index: 1;
+      padding: 50px;
+      border-radius: 25px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow:
+        0 0 30px rgba(56,189,248,0.25),
+        0 0 80px rgba(168,85,247,0.15);
+      animation: float 4s ease-in-out infinite;
+      max-width: 750px;
+      width: 90%;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
     }
 
     h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
       margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(56,189,248,0.8);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow:
+          0 0 10px #38bdf8,
+          0 0 20px #38bdf8;
+      }
+      to {
+        text-shadow:
+          0 0 20px #a855f7,
+          0 0 40px #a855f7;
+      }
     }
 
     p {
       font-size: 1.3rem;
       opacity: 0.9;
+      margin-bottom: 20px;
     }
 
     .date {
-      margin-top: 15px;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       font-weight: bold;
       color: #38bdf8;
+      letter-spacing: 2px;
+    }
+
+    /* Pulzáló pontok */
+    .dots {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #38bdf8;
+      animation: pulse 1.5s infinite;
+    }
+
+    .dots span:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+
+    .dots span:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+      50% {
+        transform: scale(1.8);
+        opacity: 1;
+      }
     }
 
     @media (max-width: 600px) {
       h1 {
-        font-size: 2.2rem;
+        font-size: 2.3rem;
       }
 
-      p,
+      p {
+        font-size: 1rem;
+      }
+
       .date {
-        font-size: 1.1rem;
+        font-size: 1.3rem;
+      }
+
+      .container {
+        padding: 35px 25px;
       }
     }
   </style>
 </head>
 <body>
+
+  <div class="background"></div>
+
   <div class="container">
-    <h1>🚧 Weboldal fejlesztés alatt 🚧</h1>
-    <p>Köszönjük a türelmed!</p>
+    <h1>🚧 Fejlesztés alatt 🚧</h1>
+
+    <p>
+      Dolgozunk valami igazán különleges dolgon.
+    </p>
+
     <div class="date">
       Várható megjelenés: 2026.05.28
     </div>
+
+    <div class="dots">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </div>
+
 </body>
 </html>
