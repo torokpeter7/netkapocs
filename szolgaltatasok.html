@@ -3,211 +3,131 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Szolgáltatások – NetKapocs</title>
+<title>Szolgáltatások — Török Péter, IT üzemeltetés</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="icon" type="image/png" href="/image/icon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav id="mainNav">
-  <a class="logo" href="index.html">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    </div>
-    Net<span>Kapocs</span>
-  </a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="index.html">Főoldal</a></li>
-    <li><a href="szolgaltatasok.html" class="active">Szolgáltatások</a></li>
-    <li><a href="eszkozok.html">Eszközök</a></li>
-    <li><a href="referenciak.html">Referenciák</a></li>
-    <li><a href="rolam.html">Rólam</a></li>
-    <li><a href="kapcsolat.html" class="nav-cta">Kapcsolat</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-
-<!-- PAGE HEADER -->
-<div style="background:var(--navy);color:white;padding:4rem 2rem 3rem">
-  <div style="max-width:1100px;margin:0 auto">
-    <div class="section-tag" style="margin-bottom:.8rem">Részletes szolgáltatások</div>
-    <h1 style="color:white;font-size:clamp(2rem,4vw,2.8rem);font-weight:800;margin-bottom:.9rem">Mit tartalmaz az otthoni<br>hálózat kiépítése?</h1>
-    <p style="color:rgba(255,255,255,0.7);max-width:580px;font-size:1.02rem;line-height:1.75">Nem csak egy routert cserélek – teljes, átgondolt hálózatot tervezek és kivitelezek, a felmérésből az átadásig.</p>
-  </div>
-</div>
-
-<!-- SERVICES DETAIL -->
-<section class="section section-alt">
-  <div class="section-inner">
-    <div class="services-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem">
-
-      <div style="background:white;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.75rem">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem">
-          <div style="width:42px;height:42px;background:var(--blue-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0">🔍</div>
-          <h3 style="font-size:1.05rem">Helyszíni felmérés</h3>
-        </div>
-        <ul class="detail-list">
-          <li>WiFi lefedettség mérése (holtpontok meghatározása)</li>
-          <li>Épület alaprajz és falszerkezet elemzése</li>
-          <li>Meglévő eszközök és kábelezés átvizsgálása</li>
-          <li>Internet sebesség mérés és diagnosztika</li>
-          <li>Igények és elvárások egyeztetése</li>
-        </ul>
-        <div style="margin-top:1rem;background:#F0FDF4;border:1px solid #86EFAC;border-radius:8px;padding:.75rem 1rem;font-size:.84rem;color:#166534;font-weight:600">✅ Ez a lépés ingyenes!</div>
-      </div>
-
-      <div style="background:white;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.75rem">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem">
-          <div style="width:42px;height:42px;background:var(--blue-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0">📐</div>
-          <h3 style="font-size:1.05rem">Hálózattervezés &amp; ajánlat</h3>
-        </div>
-        <ul class="detail-list">
-          <li>Eszközök optimális elhelyezésének megtervezése</li>
-          <li>IP cím séma kialakítása</li>
-          <li>Hálózati szegmentálás (főhálózat, vendég, IoT)</li>
-          <li>Eszköz kiválasztás igény és budget szerint</li>
-          <li>Részletes, írásos ajánlat – eszközök ára külön!</li>
-        </ul>
-      </div>
-
-      <div style="background:white;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.75rem">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem">
-          <div style="width:42px;height:42px;background:var(--blue-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0">🔧</div>
-          <h3 style="font-size:1.05rem">Telepítés &amp; konfigurálás</h3>
-        </div>
-        <ul class="detail-list">
-          <li>Router és access pointok telepítése, bekötése</li>
-          <li>TP-Link / Ubiquiti UniFi / MikroTik konfiguráció</li>
-          <li>Mesh rendszer kialakítása (ha szükséges)</li>
-          <li>Vendég WiFi és IoT szegmens beállítása</li>
-          <li>Összes eszköz (laptop, TV, kamera) csatlakoztatása</li>
-        </ul>
-      </div>
-
-      <div style="background:white;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.75rem">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem">
-          <div style="width:42px;height:42px;background:var(--blue-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0">📋</div>
-          <h3 style="font-size:1.05rem">Átadás &amp; garancia</h3>
-        </div>
-        <ul class="detail-list">
-          <li>Hálózati dokumentáció átadása (jelszavak, IP-k, eszközök)</li>
-          <li>Rövid betanítás – hogyan kezelje az eszközöket</li>
-          <li>Sebességtesztek minden szobában</li>
-          <li>30 napos garancia az elvégzett munkára</li>
-          <li>Utólagos kérdések megválaszolása ingyenesen</li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- EXTRA SERVICES -->
-<section class="section">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">Egyéb megoldások</div>
-      <h2>Amit még elvégzek</h2>
-      <p>A hálózat kiépítésén túl ezeket a feladatokat is elvállalom.</p>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.1rem">
-      <div style="background:white;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.4rem;text-align:center;transition:all .2s">
-        <div style="font-size:1.8rem;margin-bottom:8px">🔌</div>
-        <h4 style="font-size:.95rem;margin-bottom:5px">Hálózati kábelezés</h4>
-        <p style="font-size:.82rem;color:var(--gray-600)">Cat5e/Cat6 UTP kábel fektetése, fali aljzatok szerelése</p>
-      </div>
-      <div style="background:white;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.4rem;text-align:center;transition:all .2s">
-        <div style="font-size:1.8rem;margin-bottom:8px">📹</div>
-        <h4 style="font-size:.95rem;margin-bottom:5px">IP kamera rendszer</h4>
-        <p style="font-size:.82rem;color:var(--gray-600)">Biztonsági kamerák hálózatba kötése, NVR beállítás</p>
-      </div>
-      <div style="background:white;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.4rem;text-align:center;transition:all .2s">
-        <div style="font-size:1.8rem;margin-bottom:8px">💾</div>
-        <h4 style="font-size:.95rem;margin-bottom:5px">NAS tárhely beállítás</h4>
-        <p style="font-size:.82rem;color:var(--gray-600)">Hálózati meghajtó (NAS) telepítése és beállítása</p>
-      </div>
-      <div style="background:white;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.4rem;text-align:center;transition:all .2s">
-        <div style="font-size:1.8rem;margin-bottom:8px">📺</div>
-        <h4 style="font-size:.95rem;margin-bottom:5px">Smart TV &amp; streaming</h4>
-        <p style="font-size:.82rem;color:var(--gray-600)">Smart TV, Apple TV, Chromecast beállítása</p>
-      </div>
-      <div style="background:white;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.4rem;text-align:center;transition:all .2s">
-        <div style="font-size:1.8rem;margin-bottom:8px">🏠</div>
-        <h4 style="font-size:.95rem;margin-bottom:5px">Smart Home integráció</h4>
-        <p style="font-size:.82rem;color:var(--gray-600)">Google Home, Alexa, Zigbee eszközök hálózatba kötése</p>
-      </div>
-      <div style="background:white;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.4rem;text-align:center;transition:all .2s">
-        <div style="font-size:1.8rem;margin-bottom:8px">🔒</div>
-        <h4 style="font-size:.95rem;margin-bottom:5px">Hálózatbiztonság</h4>
-        <p style="font-size:.82rem;color:var(--gray-600)">Tűzfal, vendég WiFi, szülői felügyelet beállítása</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<div class="cta-banner">
-  <h2>Kérdése van? Szívesen segítek!</h2>
-  <p>Ingyenes konzultáció – elmondja az igényét, én megoldom.</p>
-  <a href="kapcsolat.html" class="btn btn-primary">Kapcsolatfelvétel →</a>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-logo">Net<span>Kapocs</span></div>
-      <div class="footer-desc">Stabil WiFi minden szobában. Profi TP-Link, Ubiquiti és MikroTik eszközökkel. Bács-Kiskun Vármegye.</div>
-    </div>
-    <div class="footer-col">
-      <h4>Oldalak</h4>
+<header>
+  <div class="wrap nav">
+    <div class="brand">TÖRÖK PÉTER <small>IT üzemeltetés</small></div>
+    <button class="menu-toggle" aria-label="Menü megnyitása" onclick="document.querySelector('nav.links').classList.toggle('open')">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <nav class="links">
       <a href="index.html">Főoldal</a>
-      <a href="szolgaltatasok.html">Szolgáltatások</a>
-      <a href="eszkozok.html">Eszközök</a>
+      <a href="szolgaltatasok.html" class="active">Szolgáltatások</a>
+      <a href="otthoni-halozat.html">Otthoni hálózat</a>
       <a href="rolam.html">Rólam</a>
       <a href="kapcsolat.html">Kapcsolat</a>
-    </div>
-    <div class="footer-col">
-      <h4>Eszközök</h4>
-      <a href="eszkozok.html">🔵 TP-Link</a>
-      <a href="eszkozok.html">🟢 Ubiquiti UniFi</a>
-      <a href="eszkozok.html">🔴 MikroTik</a>
-    </div>
-    <div class="footer-col">
-      <h4>Elérhetőség</h4>
-      <a href="tel:+36309654445">+36 30 965 4445</a>
-      <a href="mailto:mail.torokpeter@gmail.com">mail.torokpeter@gmail.com</a>
-      <a>Bács-Kiskun Vármegye</a>
-      <a>H–P: 8:00–18:00 | Szo: 9:00–12:00</a>
+      <!-- <a href="arajanlat.html" class="nav-cta">Árajánlat kérése</a> -->
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">Szolgáltatások</div>
+    <h1>Teljes körű informatikai<br>szolgáltatás — egy helyről</h1>
+    <p class="lead">A hardver telepítésétől a felhő szolgáltatások bevezetéséig minden lépést vállalok, hogy az informatikai rendszere zökkenőmentesen működjön.</p>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="service-grid">
+      <div class="service">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+        <h3>Hálózatkiépítés</h3>
+        <p>Vezetékes és Wi-Fi hálózatok tervezése, kiépítése, Cisco és MikroTik eszközök konfigurálása, VLAN- és VPN-beállítás irodák és kisvállalkozások számára.</p>
+        <a class="more" href="otthoni-halozat.html">Otthoni hálózat →</a>
+      </div>
+      <div class="service">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="15" width="16" height="6" rx="1.5"/><circle cx="8" cy="6" r="0.8" fill="currentColor"/><circle cx="8" cy="18" r="0.8" fill="currentColor"/></svg>
+        <h3>Szerver- és rendszerüzemeltetés</h3>
+        <p>Windows Server és Linux (Ubuntu) rendszerek telepítése, konfigurálása, felügyelete, felhasználó- és jogosultságkezelés, biztonsági mentés kialakítása.</p>
+      </div>
+      <div class="service">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 18a4 4 0 0 1-1-7.9A5 5 0 0 1 15 7a4.5 4.5 0 0 1 1 8.9"/><path d="M12 18v-6M9.5 14.5 12 12l2.5 2.5"/></svg>
+        <h3>Felhő szolgáltatások</h3>
+        <p>Felhő alapú tárhely, levelezés és virtuális gépek bevezetése, meglévő rendszerek migrációja kisvállalkozások számára.</p>
+      </div>
+      <div class="service">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 5-3 7.5-7 9-4-1.5-7-4-7-9V6l7-3z"/></svg>
+        <h3>IT biztonság</h3>
+        <p>Tűzfal- és víruskereső-beállítás, jelszó- és hozzáférés-kezelés, alapszintű adatvédelmi intézkedések a mindennapi biztonságos működéshez.</p>
+      </div>
+      <div class="service">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12a8 8 0 1 1 3 6.2"/><path d="M4 12v5h5"/></svg>
+        <h3>Support és hibaelhárítás</h3>
+        <p>Gyors helyszíni vagy távoli hibaelhárítás, folyamatos rendelkezésre állás, érthető, átlátható dokumentációval minden munkáról.</p>
+      </div>
+      <div class="service">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M6 21V9l6-5 6 5v12M10 21v-6h4v6"/></svg>
+        <h3>Kisvállalati infrastruktúra</h3>
+        <p>Teljes IT-infrastruktúra kiépítése induló és növekvő kisvállalkozásoknak — igény szerint testre szabva, hosszú távú támogatással.</p>
+      </div>
     </div>
   </div>
-  <div class="footer-bottom">
-    <span>© 2025 NetKapocs – Minden jog fenntartva</span>
-    <span>Otthoni hálózat kiépítési specialista</span>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Hogyan dolgozom</div>
+      <h2>Átlátható folyamat, az egyeztetéstől az átadásig</h2>
+    </div>
+    <div class="process">
+      <div class="process-step">
+        <div class="num">01</div>
+        <h3>Egyeztetés</h3>
+        <p>Rövid beszélgetés az igényeiről, telefonon vagy e-mailben.</p>
+      </div>
+      <div class="process-step">
+        <div class="num">02</div>
+        <h3>Felmérés</h3>
+        <p>Helyszíni vagy távoli felmérés, a jelenlegi rendszer és igények pontos átlátása.</p>
+      </div>
+      <div class="process-step">
+        <div class="num">03</div>
+        <h3>Kivitelezés</h3>
+        <p>A megbeszélt munka elvégzése, folyamatos egyeztetéssel a nagyobb lépéseknél.</p>
+      </div>
+      <div class="process-step">
+        <div class="num">04</div>
+        <h3>Átadás és support</h3>
+        <p>Dokumentáció átadása, betanítás, és igény esetén folyamatos rendelkezésre állás.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="cta-banner">
+      <div>
+        <h2>Nem biztos, melyik szolgáltatásra van szüksége?</h2>
+        <p>Írja le röviden a helyzetét, és javaslatot teszek a legjobb megoldásra.</p>
+      </div>
+      <a href="kapcsolat.html" class="btn btn-primary">Árajánlat kérése</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Török Péter — IT rendszer- és alkalmazásüzemeltetés, Baja</p>
+    <div class="footer-links">
+      <a href="szolgaltatasok.html">Szolgáltatások</a>
+      <a href="otthoni-halozat.html">Otthoni hálózat</a>
+      <a href="kapcsolat.html">Kapcsolat</a>
+    </div>
+    <span class="foot-brand">rendszer.üzemeltetés // v1.0</span>
   </div>
 </footer>
 
-<script>
-function toggleMenu() {
-  const nav = document.getElementById('navLinks');
-  const btn = document.getElementById('hamburger');
-  nav.classList.toggle('open');
-  btn.classList.toggle('open');
-}
-document.addEventListener('click', function(e) {
-  const nav = document.getElementById('navLinks');
-  const btn = document.getElementById('hamburger');
-  if (!nav.contains(e.target) && !btn.contains(e.target)) {
-    nav.classList.remove('open');
-    btn.classList.remove('open');
-  }
-});
-</script>
 </body>
 </html>

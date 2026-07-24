@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Árajánlat kérése — Török Péter, IT üzemeltetés</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">TÖRÖK PÉTER <small>IT üzemeltetés</small></div>
+    <button class="menu-toggle" aria-label="Menü megnyitása" onclick="document.querySelector('nav.links').classList.toggle('open')">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <nav class="links">
+      <a href="index.html">Főoldal</a>
+      <a href="szolgaltatasok.html">Szolgáltatások</a>
+      <a href="otthoni-halozat.html">Otthoni hálózat</a>
+      <a href="rolam.html">Rólam</a>
+      <a href="kapcsolat.html">Kapcsolat</a>
+      <!-- <a href="arajanlat.html" class="nav-cta active">Árajánlat kérése</a> -->
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">Árajánlat</div>
+    <h1>Kérjen személyre<br>szabott <span>árajánlatot</span></h1>
+    <p class="lead">Töltse ki az alábbi űrlapot a projektje részleteivel, és 24 órán belül konkrét, tételes ajánlattal jelentkezem.</p>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap contact-grid">
+    <div class="contact-info">
+      <h3>Mit érdemes megadnia?</h3>
+      <p>Minél pontosabb leírást ad, annál gyorsabban tudok reális árat és időzítést mondani.</p>
+      <div class="info-line">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12h6M9 16h6M9 8h6M5 21V5a2 2 0 0 1 2-2h6l6 6v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2Z"/></svg>
+        <div><small>Milyen szolgáltatás</small><span>Hálózat, szerver, felhő, biztonság vagy egyéb</span></div>
+      </div>
+      <div class="info-line">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M6 21V9l6-5 6 5v12M10 21v-6h4v6"/></svg>
+        <div><small>Ingatlan / cég típusa</small><span>Lakás, iroda, üzlethelyiség stb.</span></div>
+      </div>
+      <div class="info-line">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <div><small>Helyszín</small><span>Település, hogy lássam, vállalható-e</span></div>
+      </div>
+      <div class="info-line">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <div><small>Időzítés</small><span>Mikorra lenne szüksége a megoldásra</span></div>
+      </div>
+    </div>
+
+    <form onsubmit="event.preventDefault(); this.querySelector('.btn').textContent='Kérés elküldve ✓';">
+      <div class="field-row">
+        <div class="field">
+          <label for="name">Név</label>
+          <input id="name" type="text" placeholder="Az Ön neve" required>
+        </div>
+        <div class="field">
+          <label for="phone">Telefon</label>
+          <input id="phone" type="tel" placeholder="+36 30 000 0000">
+        </div>
+      </div>
+      <div class="field">
+        <label for="email">E-mail cím</label>
+        <input id="email" type="email" placeholder="pelda@email.hu" required>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="service">Szolgáltatás típusa</label>
+          <select id="service">
+            <option>Otthoni hálózat kiépítése</option>
+            <option>Hálózatkiépítés (iroda / cég)</option>
+            <option>Szerver- és rendszerüzemeltetés</option>
+            <option>Felhő szolgáltatás</option>
+            <option>IT biztonság</option>
+            <option>Egyéb</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="type">Ingatlan / cég típusa</label>
+          <select id="type">
+            <option>Lakás / ház</option>
+            <option>Kisvállalkozás</option>
+            <option>Iroda</option>
+            <option>Egyéb</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="desc">Rövid leírás</label>
+        <textarea id="desc" placeholder="Mesélje el, mire lenne szüksége, hány eszközről/helyiségről van szó, és mi a jelenlegi probléma..." required></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit">Árajánlat kérése</button>
+      <p class="form-note">24 órán belül válaszolok az igényére.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Török Péter — IT rendszer- és alkalmazásüzemeltetés, Baja</p>
+    <div class="footer-links">
+      <a href="szolgaltatasok.html">Szolgáltatások</a>
+      <a href="otthoni-halozat.html">Otthoni hálózat</a>
+      <a href="kapcsolat.html">Kapcsolat</a>
+    </div>
+    <span class="foot-brand">rendszer.üzemeltetés // v1.0</span>
+  </div>
+</footer>
+
+</body>
+</html>
