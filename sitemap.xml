@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+<url>
+<loc>https://www.netkap.hu/</loc>
+<priority>1.0</priority>
+</url>
+
+<url>
+<loc>https://www.netkap.hu/szolgaltatasok.html</loc>
+</url>
+
+<url>
+<loc>https://www.netkap.hu/otthoni-halozatok.html</loc>
+</url>
+
+<url>
+<loc>https://www.netkap.hu/kapcsolat.html</loc>
+</url>
+
+<url>
+<loc>https://www.netkap.hu/rolam.html</loc>
+</url>
+
+</urlset>
