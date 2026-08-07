@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin — NetKapocs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">NetKapocs <small>Admin</small></div>
+    <button id="logout-btn" class="btn btn-ghost" style="display:none; padding:8px 16px; font-size:0.85rem;">Kijelentkezés</button>
+  </div>
+</header>
+
+<!-- LOGIN -->
+<section id="login-section" class="page-hero" style="padding-bottom:0;">
+  <div class="wrap" style="max-width:420px;">
+    <div class="eyebrow">Admin belépés</div>
+    <h1 style="font-size:1.8rem;">Bejelentkezés</h1>
+    <form id="login-form" style="margin-top:24px;">
+      <div class="field">
+        <label for="login-email">E-mail cím</label>
+        <input id="login-email" type="email" placeholder="admin@netkap.hu" required>
+      </div>
+      <div class="field">
+        <label for="login-password">Jelszó</label>
+        <input id="login-password" type="password" placeholder="••••••••" required>
+      </div>
+      <button class="btn btn-primary" type="submit">Belépés</button>
+      <p class="form-note" id="login-status" style="display:none;"></p>
+    </form>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard-section" style="display:none; padding-top:44px;">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:32px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
+      <div>
+        <div class="kicker">Beérkezett üzenetek</div>
+        <h2>Kapcsolat és árajánlat kérések</h2>
+      </div>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="mind">Mind</button>
+        <button class="filter-tab" data-filter="kapcsolat">Kapcsolat</button>
+        <button class="filter-tab" data-filter="arajanlat">Árajánlat</button>
+      </div>
+    </div>
+
+    <p id="loading-msg" style="color:var(--ink-soft);">Betöltés...</p>
+    <p id="empty-msg" style="display:none; color:var(--ink-soft);">Még nincs beérkezett üzenet.</p>
+
+    <div id="messages-list"></div>
+  </div>
+</section>
+
+<style>
+  .filter-tabs{display:flex; gap:8px;}
+  .filter-tab{
+    font-family:var(--mono); font-size:0.78rem; padding:8px 16px;
+    border:1px solid var(--line); border-radius:20px; background:var(--surface);
+    color:var(--ink-soft); cursor:pointer;
+  }
+  .filter-tab.active{background:var(--navy); color:#fff; border-color:var(--navy);}
+  .msg-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    padding:22px 26px; margin-bottom:16px;
+  }
+  .msg-card-top{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:12px;}
+  .msg-badge{
+    font-family:var(--mono); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;
+    padding:4px 10px; border-radius:20px; font-weight:600;
+  }
+  .msg-badge.kapcsolat{background:var(--accent-dim); color:var(--accent);}
+  .msg-badge.arajanlat{background:#2D618722; color:var(--steel);}
+  .msg-date{font-family:var(--mono); font-size:0.76rem; color:var(--ink-soft);}
+  .msg-name{font-family:var(--display); font-weight:600; color:var(--navy); font-size:1.05rem;}
+  .msg-meta{display:flex; flex-wrap:wrap; gap:6px 18px; font-size:0.86rem; color:var(--ink-soft); margin-bottom:10px;}
+  .msg-meta b{color:var(--ink);}
+  .msg-body{font-size:0.94rem; color:var(--ink); white-space:pre-wrap;}
+</style>
+
+<script>
+  const loginSection = document.getElementById('login-section');
+  const dashboardSection = document.getElementById('dashboard-section');
+  const logoutBtn = document.getElementById('logout-btn');
+  const loginForm = document.getElementById('login-form');
+  const loginStatus = document.getElementById('login-status');
+  const messagesList = document.getElementById('messages-list');
+  const loadingMsg = document.getElementById('loading-msg');
+  const emptyMsg = document.getElementById('empty-msg');
+  const filterTabs = document.querySelectorAll('.filter-tab');
+
+  let allMessages = [];
+  let currentFilter = 'mind';
+
+  function showDashboard() {
+    loginSection.style.display = 'none';
+    dashboardSection.style.display = 'block';
+    logoutBtn.style.display = 'inline-flex';
+    loadMessages();
+  }
+
+  function showLogin() {
+    loginSection.style.display = 'block';
+    dashboardSection.style.display = 'none';
+    logoutBtn.style.display = 'none';
+  }
+
+  async function checkSession() {
+    const { data } = await supabaseClient.auth.getSession();
+    if (data.session) {
+      showDashboard();
+    } else {
+      showLogin();
+    }
+  }
+
+  loginForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const btn = loginForm.querySelector('.btn');
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Belépés...';
+    loginStatus.style.display = 'none';
+
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+
+    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+    btn.disabled = false;
+    btn.textContent = originalText;
+
+    if (error) {
+      loginStatus.textContent = 'Hibás e-mail cím vagy jelszó.';
+      loginStatus.style.color = '#c0392b';
+      loginStatus.style.display = 'block';
+    } else {
+      showDashboard();
+    }
+  });
+
+  logoutBtn.addEventListener('click', async function () {
+    await supabaseClient.auth.signOut();
+    showLogin();
+  });
+
+  filterTabs.forEach(tab => {
+    tab.addEventListener('click', function () {
+      filterTabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      currentFilter = this.dataset.filter;
+      renderMessages();
+    });
+  });
+
+  async function loadMessages() {
+    loadingMsg.style.display = 'block';
+    emptyMsg.style.display = 'none';
+    messagesList.innerHTML = '';
+
+    const { data, error } = await supabaseClient
+      .from('uzenetek')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    loadingMsg.style.display = 'none';
+
+    if (error) {
+      console.error('Supabase hiba:', error);
+      messagesList.innerHTML = '<p style="color:#c0392b;">Hiba történt az üzenetek betöltésekor.</p>';
+      return;
+    }
+
+    allMessages = data || [];
+    renderMessages();
+  }
+
+  function renderMessages() {
+    const filtered = currentFilter === 'mind'
+      ? allMessages
+      : allMessages.filter(m => m.tipus === currentFilter);
+
+    if (filtered.length === 0) {
+      messagesList.innerHTML = '';
+      emptyMsg.style.display = 'block';
+      return;
+    }
+    emptyMsg.style.display = 'none';
+
+    messagesList.innerHTML = filtered.map(renderCard).join('');
+  }
+
+  function renderCard(m) {
+    const date = new Date(m.created_at).toLocaleString('hu-HU', {
+      year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'
+    });
+    const typeLabel = m.tipus === 'arajanlat' ? 'Árajánlat' : 'Kapcsolat';
+
+    const metaParts = [];
+    if (m.email) metaParts.push(`<span><b>E-mail:</b> ${escapeHtml(m.email)}</span>`);
+    if (m.telefon) metaParts.push(`<span><b>Telefon:</b> ${escapeHtml(m.telefon)}</span>`);
+    if (m.szolgaltatas) metaParts.push(`<span><b>Szolgáltatás:</b> ${escapeHtml(m.szolgaltatas)}</span>`);
+    if (m.ingatlan_tipus) metaParts.push(`<span><b>Típus:</b> ${escapeHtml(m.ingatlan_tipus)}</span>`);
+
+    return `
+      <div class="msg-card">
+        <div class="msg-card-top">
+          <div>
+            <span class="msg-badge ${m.tipus}">${typeLabel}</span>
+            <span class="msg-name" style="margin-left:10px;">${escapeHtml(m.nev)}</span>
+          </div>
+          <span class="msg-date">${date}</span>
+        </div>
+        <div class="msg-meta">${metaParts.join('')}</div>
+        <div class="msg-body">${escapeHtml(m.uzenet)}</div>
+      </div>
+    `;
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>"']/g, s => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[s]));
+  }
+
+  checkSession();
+</script>
+
+</body>
+</html>

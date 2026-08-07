@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 </head>
 <body>
 
@@ -23,7 +25,7 @@
       <a href="otthoni-halozat.html">Otthoni hálózat</a>
       <a href="rolam.html">Rólam</a>
       <a href="kapcsolat.html">Kapcsolat</a>
-      <!-- <a href="arajanlat.html" class="nav-cta active">Árajánlat kérése</a> -->
+      <a href="arajanlat.html" class="nav-cta">Árajánlat kérése</a>
     </nav>
   </div>
 </header>
@@ -59,7 +61,7 @@
       </div>
     </div>
 
-    <form onsubmit="event.preventDefault(); this.querySelector('.btn').textContent='Kérés elküldve ✓';">
+    <form id="arajanlat-form">
       <div class="field-row">
         <div class="field">
           <label for="name">Név</label>
@@ -101,7 +103,7 @@
         <textarea id="desc" placeholder="Mesélje el, mire lenne szüksége, hány eszközről/helyiségről van szó, és mi a jelenlegi probléma..." required></textarea>
       </div>
       <button class="btn btn-primary" type="submit">Árajánlat kérése</button>
-      <p class="form-note">24 órán belül válaszolok az igényére.</p>
+      <p class="form-note" id="arajanlat-status">24 órán belül válaszolok az igényére.</p>
     </form>
   </div>
 </section>
@@ -117,6 +119,46 @@
     <span class="foot-brand">rendszer.üzemeltetés // v1.0</span>
   </div>
 </footer>
+
+<script>
+document.getElementById('arajanlat-form').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const btn = form.querySelector('.btn');
+  const status = document.getElementById('arajanlat-status');
+  const originalBtnText = btn.textContent;
+  const originalStatusText = status.textContent;
+
+  btn.disabled = true;
+  btn.textContent = 'Küldés...';
+
+  const payload = {
+    tipus: 'arajanlat',
+    nev: document.getElementById('name').value.trim(),
+    telefon: document.getElementById('phone').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    szolgaltatas: document.getElementById('service').value,
+    ingatlan_tipus: document.getElementById('type').value,
+    uzenet: document.getElementById('desc').value.trim()
+  };
+
+  const { error } = await supabaseClient.from('uzenetek').insert(payload);
+
+  if (error) {
+    console.error('Supabase hiba:', error);
+    btn.disabled = false;
+    btn.textContent = originalBtnText;
+    status.textContent = 'Hiba történt a küldés során. Kérjük, próbálja újra, vagy írjon e-mailt.';
+    status.style.color = '#c0392b';
+  } else {
+    btn.textContent = 'Kérés elküldve ✓';
+    status.textContent = 'Köszönjük! 24 órán belül jelentkezem az ajánlattal.';
+    status.style.color = '';
+    form.reset();
+  }
+});
+</script>
 
 </body>
 </html>

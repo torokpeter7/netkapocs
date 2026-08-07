@@ -12,6 +12,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 </head>
 <body>
 
@@ -26,8 +28,8 @@
       <a href="szolgaltatasok.html">Szolgáltatások</a>
       <a href="otthoni-halozat.html">Otthoni hálózat</a>
       <a href="rolam.html">Rólam</a>
-      <a href="kapcsolat.html" class="nav-cta">Kapcsolat</a>
-      <!-- <a href="arajanlat.html" class="nav-cta">Árajánlat kérése</a> -->
+      <a href="kapcsolat.html" class="active">Kapcsolat</a>
+      <a href="arajanlat.html" class="nav-cta">Árajánlat kérése</a>
     </nav>
   </div>
 </header>
@@ -63,8 +65,7 @@
         <div><small>Válaszidő</small><span>Jellemzően 1 munkanapon belül</span></div>
       </div>
     </div>
-    <!--
-    <form onsubmit="event.preventDefault(); this.querySelector('.btn').textContent='Üzenet elküldve ✓';">
+    <form id="kapcsolat-form">
       <div class="field">
         <label for="name">Név</label>
         <input id="name" type="text" placeholder="Az Ön neve" required>
@@ -78,8 +79,8 @@
         <textarea id="msg" placeholder="Röviden írja le, miben segíthetek..." required></textarea>
       </div>
       <button class="btn btn-primary" type="submit">Üzenet küldése</button>
+      <p class="form-note" id="kapcsolat-status" style="display:none;"></p>
     </form>
-  -->
   </div>
 </section>
 <footer>
@@ -93,6 +94,45 @@
     <span class="foot-brand">rendszer.üzemeltetés // v1.0</span>
   </div>
 </footer>
+
+<script>
+document.getElementById('kapcsolat-form').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const btn = form.querySelector('.btn');
+  const status = document.getElementById('kapcsolat-status');
+  const originalBtnText = btn.textContent;
+
+  btn.disabled = true;
+  btn.textContent = 'Küldés...';
+  status.style.display = 'none';
+
+  const payload = {
+    tipus: 'kapcsolat',
+    nev: document.getElementById('name').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    uzenet: document.getElementById('msg').value.trim()
+  };
+
+  const { error } = await supabaseClient.from('uzenetek').insert(payload);
+
+  if (error) {
+    console.error('Supabase hiba:', error);
+    btn.disabled = false;
+    btn.textContent = originalBtnText;
+    status.textContent = 'Hiba történt a küldés során. Kérjük, próbálja újra, vagy írjon e-mailt.';
+    status.style.color = '#c0392b';
+    status.style.display = 'block';
+  } else {
+    btn.textContent = 'Üzenet elküldve ✓';
+    status.textContent = 'Köszönjük! Hamarosan jelentkezem.';
+    status.style.color = '';
+    status.style.display = 'block';
+    form.reset();
+  }
+});
+</script>
 
 </body>
 </html>
